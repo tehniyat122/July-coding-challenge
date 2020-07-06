@@ -1,0 +1,57 @@
+******************************************************************************************************
+The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+Given two integers x and y, calculate the Hamming distance.
+
+Note:
+0 ≤ x, y < 231.
+
+Example:
+
+Input: x = 1, y = 4
+
+Output: 2
+
+Explanation:
+1   (0 0 0 1)
+4   (0 1 0 0)
+       ↑   ↑
+
+The above arrows point to positions where the corresponding bits are different.
+
+************************************************************************************************************
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    /*
+    Name: hammingDistance
+    Args: X and Y
+    return: outputs count of differed bit.
+    Description: 
+        1. Find the xor of two values.
+        2. Perform the right shift
+        3. count number of 1's of x0r'ed value
+        4. return output
+    */
+    int hammingDistance(int x, int y) {
+        int value = x^y;
+        int count = 0;
+        while(value != 0)
+        {
+            cout<<"value: "<<value<<endl;
+            if(value&1)
+            {
+                count++;
+            }
+            value = value>>1;
+        }
+        return count;
+    }
+};
