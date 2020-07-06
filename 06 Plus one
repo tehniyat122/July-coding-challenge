@@ -1,0 +1,66 @@
+/*
+Problem Description: 
+
+Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
+
+The digits are stored such that the most significant digit is at the head of the list, and each element in the array contain a single digit.
+
+You may assume the integer does not contain any leading zero, except the number 0 itself.
+
+Example 1:
+
+Input: [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Example 2:
+
+Input: [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+*/
+
+
+class Solution {
+public:
+    /*
+    Name: plusOne
+    Args: vector(ints)
+    return:vector(ints)
+    Description:
+    1.if find last element is less than 9
+        i)add 1 to last value
+    2.else
+       i) initialise sum to 1.
+       ii) iterate from end to beginning.
+       iii) sum+=a[i]%10
+       iv) sum=sum/10;
+       if sum is one
+        i)resize the vector to 1
+        ii) reverse the vector
+    
+    */
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        if (digits[n-1] <  9)
+        {
+          digits[n-1]+=1;   
+        }
+        else
+        {
+            int sum = 1;
+            for(int i = digits.size()-1; i>=0; i--)
+            {
+                 sum+=digits[i];
+                 digits[i] = sum%10;
+                 sum=sum/10;
+            }
+            if(sum == 1)
+            {
+                digits.resize(digits.size()+1,1);
+                std::reverse(digits.begin(), digits.end());
+            }
+            
+        }
+        return digits;
+    }
+};
