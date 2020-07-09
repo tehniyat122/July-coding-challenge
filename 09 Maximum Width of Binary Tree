@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    /*
+    Name:   widthOfBinaryTree
+    Args:   Root Node
+    return: Return the maximum width of binary tree.
+    Description:
+    //Implemented using BFS.
+        1.if root is null return 0.
+        2.initialise result, queue with the Treenode and int as a pair.
+        3.while queue is not empty
+        4.  find the queue size. 
+        5.  store max result ie, maxresult so far,count of rightnode - left node +1
+        6.  while size is set to 0
+        7.      if root->left != NULL, then push node,2*root value
+        8.      if root->right != NULL, then push node,2*root value+1
+    */
+    int widthOfBinaryTree(TreeNode* root) {
+        
+        if(root == NULL)
+        {
+            return 0;
+        }
+        int result = 0;
+       
+        queue<pair<TreeNode*,int>> qnode;
+        qnode.push({root,1});
+        while(!qnode.empty())
+        {
+            int size = qnode.size();
+            result = max(result, qnode.back().second - qnode.front().second + 1);
+            while(size--)
+            {
+                pair<TreeNode*,int> front_val =  qnode.front();
+                qnode.pop();
+                if(front_val.first->left != NULL)
+                {
+                    qnode.push({front_val.first->left,2L*front_val.second});
+                }
+                if(front_val.first->right != NULL)
+                {
+                    qnode.push({front_val.first->right,2L*front_val.second+1});
+                }
+            }
+        }
+        return result;
+        
+    }
+};
